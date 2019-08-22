@@ -1,6 +1,9 @@
 import express from 'express';
 import exphbs from 'express-handlebars';
 import path from 'path';
+// importing routes
+import IndexRoutes from './routes';
+
 
 // initializations
 const app = express();
@@ -24,6 +27,9 @@ app.use(express.urlencoded({extended: false}));// enable data from html form
 // app.
 
 // routes
+// using this way /books is going to be the prefix for all routes
+// in IndexRoutes, ie: /books/add,  /books
+app.use('/books', IndexRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
