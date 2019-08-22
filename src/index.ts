@@ -11,6 +11,7 @@ import BooksRoutes from './routes/books';
 
 // initializations
 const app = express();
+import('./database');
 
 // settings
 app.set('port', process.env.PORT || 3000);
