@@ -1,11 +1,11 @@
 import { Router, Request } from 'express';
+import { indexController } from '../controllers/indexController';
+
 const router = Router();
 
-router.get('/', (req:Request, res) => {
-  res.send('uy');
-});
+router.get('/', indexController.index);
 
-router.get('/add', (req:Request, res) => {
+router.get('/add', (req: Request, res) => {
   res.send('add form');
 });
 
