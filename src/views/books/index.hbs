@@ -3,6 +3,7 @@
   {{#each books}}
     <div class="col-md-4">
       <div class="card card-body">
+        <p class="ml-auto"><a href="/books/edit/{{id}}">Edit<span class="glyphicon">&#x270f;</span></a></p>
         <h3>{{title}}</h3>
         <p>Author: {{ author }}</p>
         <p>ISBN: {{ isbn }}</p>

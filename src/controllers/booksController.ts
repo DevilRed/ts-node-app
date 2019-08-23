@@ -27,6 +27,18 @@ class BooksController {
     await book.save();
     res.redirect('/books');
   }
+
+  public async editBook(req: Request, res: Response): Promise<void> {
+    const book = await Book.findById(req.params.id);
+
+    if (req.method === 'POST') {
+      const { title, author, isbn } = req.body;
+      await Book.findByIdAndUpdate(req.params.id, { title, author, isbn });
+      res.redirect('/books');
+    } else {
+      res.render('books/edit', { title: 'Edit book', book});
+    }
+  }
 }
 
 export const booksController = new BooksController();

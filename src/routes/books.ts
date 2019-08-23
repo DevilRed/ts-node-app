@@ -8,4 +8,7 @@ router.get('/', booksController.index);
 router.get('/add', booksController.renderFormBook);
 router.post('/add', booksController.saveBook);
 
+router.get('/edit/:id', booksController.editBook);
+router.post('/edit/:id', booksController.editBook);
+
 export default router;
