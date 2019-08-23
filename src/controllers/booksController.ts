@@ -39,6 +39,11 @@ class BooksController {
       res.render('books/edit', { title: 'Edit book', book});
     }
   }
+
+  public async deleteBook(req: Request, res: Response): Promise<void> {
+    await Book.findByIdAndDelete(req.params.id);
+    res.redirect('/books');
+  }
 }
 
 export const booksController = new BooksController();
