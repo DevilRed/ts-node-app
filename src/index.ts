@@ -1,5 +1,7 @@
 // https://www.youtube.com/watch?v=UipIQ81kabs
 // 55.50
+// shelljs used to execute shell commands from code
+// https://developer.okta.com/blog/2018/11/15/node-express-typescript     check best practices
 
 import express from 'express';
 import exphbs from 'express-handlebars';

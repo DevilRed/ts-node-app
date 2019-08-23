@@ -2,12 +2,14 @@
   "name": "node-ts-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "clean": "rm -rf build",
+    "clean": "rm -rf dist",
     "tsc": "tsc",
+    "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+    "copy-assets": "ts-node ./tools/copyAssets",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
-    "prod": "tsc && node ./build/app.js"
+    "prod": "npm run clean && npm run lint && npm run tsc && npm run copy-assets && node ./dist/index.js "
   },
   "keywords": [],
   "author": "",
@@ -22,6 +24,8 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.1",
+    "@types/shelljs": "^0.8.5",
+    "shelljs": "^0.8.3",
     "ts-node-dev": "^1.0.0-pre.41",
     "tslint": "^5.19.0"
   }
