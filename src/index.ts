@@ -3,6 +3,7 @@
 // shelljs used to execute shell commands from code
 // https://developer.okta.com/blog/2018/11/15/node-express-typescript     check best practices
 
+import dotenv from 'dotenv';
 import express from 'express';
 import exphbs from 'express-handlebars';
 import path from 'path';
@@ -12,11 +13,13 @@ import BooksRoutes from './routes/books';
 
 
 // initializations
+dotenv.config();
 const app = express();
 import('./database');
 
 // settings
-app.set('port', process.env.PORT || 3000);
+const port = process.env.SERVER_PORT;
+app.set('port', port || 3000);
 app.set('views', path.join(__dirname, 'views'));
 // set xonfig for handlebars in express
 app.engine('.hbs', exphbs({

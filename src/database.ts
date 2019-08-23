@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
-import { mongodb } from './keys';
+// import { mongodb } from './keys';
+import dotenv from 'dotenv';
 
-mongoose.connect(mongodb.URI, {
+dotenv.config();
+
+mongoose.connect(`mongodb://${process.env.DBHOST}/${process.env.DBNAME}`, {
   useNewUrlParser: true,
 })
   // tslint:disable-next-line:no-console
