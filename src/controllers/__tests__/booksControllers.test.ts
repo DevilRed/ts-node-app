@@ -1,6 +1,5 @@
-// import { mocks } from '../../util/interceptor';
-const { mocks } = require('../../util/interceptor');
-const { booksController } = require('../booksController');
+import { mocks } from '../../util/interceptor';
+import { booksController } from '../booksController';
 
 describe('booksController', () => {
   it('testing controller', async () => {
@@ -10,6 +9,6 @@ describe('booksController', () => {
 
     expect(res.render).toHaveBeenCalledTimes(1);
     expect(res.render.mock.calls.length).toBe(1);
-    expect(res.render).toHaveBeenCalledWith("books/add", { "title": "Add a book" });
+    expect(res.render).toHaveBeenCalledWith('books/add', { title: 'Add a book' });
   });
 });
