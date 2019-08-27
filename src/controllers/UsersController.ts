@@ -18,5 +18,22 @@ class UsersController {
       res.render('users/add', { title: 'Add a user'});
     }
   }
+
+  public async login(req: Request, res: Response): Promise<void> {
+    if (req.method === 'POST') {
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
+      if (user) {
+        const isPasswordMatching = await user.comparePassword(password);
+        if (isPasswordMatching) {
+          res.send('ok, you are done');
+        } else {
+          res.send('try again');
+        }
+      }
+    } else {
+      res.render('users/login', { title: 'User Login'});
+    }
+  }
 }
 export const usersController = new UsersController();
