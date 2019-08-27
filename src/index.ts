@@ -10,6 +10,7 @@ import path from 'path';
 // importing routes
 import IndexRoutes from './routes';
 import BooksRoutes from './routes/books';
+import UsersRoutes from './routes/users';
 
 
 // initializations
@@ -42,6 +43,7 @@ app.use(express.urlencoded({extended: false})); // enable data from html form
 // in IndexRoutes, ie: /books/add,  /books
 app.use('/', IndexRoutes);
 app.use('/books', BooksRoutes);
+app.use('/users', UsersRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));

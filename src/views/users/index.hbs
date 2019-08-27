@@ -1,0 +1,26 @@
+<h2>{{ title }}</h2>
+{{#if users}}
+    <div class="container">
+    	<table class="table">
+    	  <thead>
+    	    <t>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+          </tr>
+    	  </thead>
+    	  <tbody>
+    	    {{#each users }}
+    	      <tr>
+    	        <td>{{ name }}</td>
+    	        <td>{{ email }}</td>
+    	        <td>{{ password }}</td>
+    	      </tr>
+    	    {{/each}}
+    	  </tbody>
+    	</table>
+    </div>
+{{else}}
+  <h3>There are no users</h3>
+  <p><a href="/users/add" class="btn btn-info">Register one</a></p>
+{{/if}}
