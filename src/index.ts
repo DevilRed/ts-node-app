@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import exphbs from 'express-handlebars';
 import path from 'path';
+import session from 'express-session';
+import passport from 'passport';
 // importing routes
 import IndexRoutes from './routes';
 import BooksRoutes from './routes/books';
@@ -17,6 +19,7 @@ import UsersRoutes from './routes/users';
 dotenv.config();
 const app = express();
 import('./database');
+import './config/passport';
 
 // settings
 const port = process.env.SERVER_PORT;
@@ -36,7 +39,21 @@ app.set('view engine', '.hbs');
 // middlewares
 app.use(express.json()); // enable json in express server
 app.use(express.urlencoded({extended: false})); // enable data from html form
-// app.
+app.use(session({
+  secret: 'mysecretapp',
+  resave: true,
+  saveUninitialized: true,
+}));
+
+// passport has to be after session and before flash
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// global variables
+/* app.use((req, res, next) => {
+  // res.locals.error = req.flash('error');
+}); */
 
 // routes
 // using this way /books is going to be the prefix for all routes
