@@ -14,8 +14,14 @@ router.post('/login', passport.authenticate('local', {
   failureFlash: true,
 }));
 router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
+  if (req.user === undefined) {
+    req.flash('error', 'wtf you are not logged in');
+    res.redirect('/');
+  } else {
+      req.logout();
+      req.flash('success_msg', 'now you are out');
+      res.redirect('/');
+  }
 });
 
 export default router;

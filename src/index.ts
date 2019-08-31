@@ -9,6 +9,7 @@ import exphbs from 'express-handlebars';
 import path from 'path';
 import session from 'express-session';
 import passport from 'passport';
+import flash from 'connect-flash';
 // importing routes
 import IndexRoutes from './routes';
 import BooksRoutes from './routes/books';
@@ -48,12 +49,20 @@ app.use(session({
 // passport has to be after session and before flash
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 
 // global variables
-/* app.use((req, res, next) => {
-  // res.locals.error = req.flash('error');
-}); */
+app.use((req, res, next) => {
+  // flash is available in "req" object, ie: req.flash()
+  // so we set global variables in "res" object that maps to flash
+  res.locals.success_msg = req.flash('success_msg');
+  // add global error variable for passport
+  res.locals.error = req.flash('error');
+  // passport saves user who logs in, available in req.user
+  res.locals.user = req.user || null;
+  next();
+});
 
 // routes
 // using this way /books is going to be the prefix for all routes

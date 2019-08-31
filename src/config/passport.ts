@@ -13,12 +13,13 @@ passport.use(new localStrategy({
   if (!user) {
     // if user not found terminate process using done
     // check the passport library documentation
-    return done(null, false, { message: 'User not found'});
+    return done(null, false, { message: 'User not found.'});
   } else {
     const match = await user.comparePassword(password);
     if (match) {
       return done(null, user);
     } else {
+      // using flash error message
       return done(null, false, { message: 'Incorrect password'});
     }
   }
