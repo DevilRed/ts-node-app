@@ -7,6 +7,7 @@ const router = Router();
 router.route('/photos')
   // use middleware to upload image
   .post(multer.single('image'), photosController.savePhoto)
+  .get(photosController.getPhotos)
   ;
 
 export default router;
