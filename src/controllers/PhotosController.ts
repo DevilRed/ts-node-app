@@ -1,9 +1,16 @@
 import { Request, Response } from 'express';
+import Photo from '../models/Photo';
 
 class PhotosController {
-  public savePhoto(req: Request, res: Response) {
-    // console.log('saving photo');
-    res.json({ message: 'jojojo'});
+  public async savePhoto(req: Request, res: Response) {
+    const { title, description } = req.body;
+    const photo = new Photo({
+      title,
+      description,
+      imagePath: req.file.path,
+    });
+    res.json({ message: 'New photo saved successfully.', photo});
+    await photo.save();
   }
 }
 
