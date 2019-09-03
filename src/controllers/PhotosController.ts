@@ -17,6 +17,13 @@ class PhotosController {
     const photos = await Photo.find();
     return res.json(photos);
   }
+
+  public async getPhoto(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const photo = await Photo.findById(id); // get param sent
+    return res.json(photo);
+
+  }
 }
 
 export const photosController = new PhotosController();

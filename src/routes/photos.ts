@@ -10,4 +10,8 @@ router.route('/photos')
   .get(photosController.getPhotos)
   ;
 
+router.route('/photo/:id')
+  .get(photosController.getPhoto)
+  ;
+
 export default router;
