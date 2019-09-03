@@ -14,6 +14,7 @@ import flash from 'connect-flash';
 import IndexRoutes from './routes';
 import BooksRoutes from './routes/books';
 import UsersRoutes from './routes/users';
+import PhotosRoutes from './routes/photos';
 
 
 // initializations
@@ -70,6 +71,7 @@ app.use((req, res, next) => {
 app.use('/', IndexRoutes);
 app.use('/books', BooksRoutes);
 app.use('/users', UsersRoutes);
+app.use(PhotosRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
