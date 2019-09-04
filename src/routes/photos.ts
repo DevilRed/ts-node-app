@@ -12,6 +12,7 @@ router.route('/photos')
 
 router.route('/photo/:id')
   .get(photosController.getPhoto)
+  .delete(photosController.deletePhoto)
   ;
 
 export default router;

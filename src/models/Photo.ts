@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-interface IPhoto extends mongoose.Document {
+export interface IPhoto extends mongoose.Document {
   title: string;
   description: string;
   imagePath: string;
