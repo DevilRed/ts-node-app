@@ -6,6 +6,7 @@ dotenv.config();
 
 mongoose.connect(`mongodb://${process.env.DBHOST}/${process.env.DBNAME}`, {
   useNewUrlParser: true,
+  useFindAndModify: false, // due new API
 })
   // tslint:disable-next-line:no-console
   .then((db) => console.log('db is connected'))

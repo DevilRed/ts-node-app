@@ -37,6 +37,19 @@ class PhotosController {
     return res.json({ message: 'Photo deleted', photo});
 
   }
+
+  public async updatePhoto(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const { title, description } = req.body;
+    const updatedPhoto = await Photo.findByIdAndUpdate(id, {
+      title,
+      description,
+    }, {new: true}); // add new true to retrieve the updated version of the document
+    return res.json({
+      message: 'Successfully updated',
+      updatedPhoto,
+    });
+  }
 }
 
 export const photosController = new PhotosController();
