@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 // import the model and the interface
 import Book, { IBook } from '../models/Book';
+import fs from 'fs-extra';
+import path from 'path';
 
 class BooksController {
   public renderBook(req: Request, res: Response): void {
@@ -33,7 +35,11 @@ class BooksController {
 
     if (req.method === 'POST') {
       const { title, author, isbn } = req.body;
-      const imagePath = (req.file) ? req.file.path : book.imagePath;
+      let imagePath = (req.file) ? req.file.path : book.imagePath;
+      if (req.body.deleteImg) {
+        imagePath = '';
+        fs.unlink(path.resolve(book.imagePath))
+      }
       // if image file is different, then delete the previous one
       await Book.findByIdAndUpdate(req.params.id, { title, author, isbn, imagePath });
       res.redirect('/books');
