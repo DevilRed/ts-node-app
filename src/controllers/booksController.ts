@@ -33,7 +33,7 @@ class BooksController {
 
     if (req.method === 'POST') {
       const { title, author, isbn } = req.body;
-      const imagePath = (req.file) ? req.file.path : '';
+      const imagePath = (req.file) ? req.file.path : book.imagePath;
       // if image file is different, then delete the previous one
       await Book.findByIdAndUpdate(req.params.id, { title, author, isbn, imagePath });
       res.redirect('/books');
