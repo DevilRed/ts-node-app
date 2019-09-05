@@ -10,6 +10,7 @@ import path from 'path';
 import session from 'express-session';
 import passport from 'passport';
 import flash from 'connect-flash';
+import serveIndex from 'serve-index'; // for serve directory with express
 // importing routes
 import IndexRoutes from './routes';
 import BooksRoutes from './routes/books';
@@ -75,6 +76,11 @@ app.use(PhotosRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
+// open directory to public, using serveIndex
+app.use('/uploads',
+  express.static(path.join(__dirname, '../uploads')),
+  serveIndex(path.join(__dirname, '../uploads'), { icons: true }),
+);
 
 // starting the server
 app.listen(app.get('port'), () => {

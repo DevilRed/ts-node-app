@@ -7,6 +7,11 @@
         <h3>{{title}}</h3>
         <p>Author: {{ author }}</p>
         <p>ISBN: {{ isbn }}</p>
+        <div>
+          {{#if imagePath }}
+            <img src="/{{imagePath}}" alt="img">
+          {{/if}}
+        </div>
         <form action="/books/delete/{{id}}" method="POST">
         <button class="btn btn-danger btn-block" type="submit">Delete book</button></form>
       </div>
