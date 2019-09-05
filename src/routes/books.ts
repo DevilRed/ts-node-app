@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import multer from '../lib/multer';
 
 const router = Router();
 
@@ -9,7 +10,7 @@ router.get('/add', booksController.renderFormBook);
 router.post('/add', booksController.saveBook);
 
 router.get('/edit/:id', booksController.editBook);
-router.post('/edit/:id', booksController.editBook);
+router.post('/edit/:id', multer.single('image'), booksController.editBook);
 
 router.post('/delete/:id', booksController.deleteBook);
 

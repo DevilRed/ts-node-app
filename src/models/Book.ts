@@ -6,12 +6,14 @@ export interface IBook extends mongoose.Document {
   title: string;
   author: string;
   isbn: string;
+  imagePath: string;
 }
 
 const bookSchema = new Schema({
   title: String,
   author: String,
   isbn: String,
+  imagePath: String,
 });
 
 // set type IBook for the model using the custom interface
