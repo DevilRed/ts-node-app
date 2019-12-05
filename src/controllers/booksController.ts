@@ -11,6 +11,7 @@ class BooksController {
   }
 
   public async index(req: Request, res: Response): Promise<void> {
+    // source: https://codeforgeek.com/server-side-pagination-using-node-and-mongo/
     // parans to expect: ?pageNo=1&size=10
     const pageNo = (req.query.pageNo) ? parseInt(req.query.pageNo, 10) : 1;
     const size = (req.query.size) ? parseInt(req.query.size, 10) : 0;
@@ -23,20 +24,26 @@ class BooksController {
     query.limit = size;
 
      // get all books using the model
-    const books: IBook[] = await Book.find({}, {}, query, (err, data) => {
-      if(err) {
-        res.send({'error': true, 'message': 'Error fetching data'});
+    const books: IBook[] = await Book.countDocuments({}, async (err, totalCount) => {
+      let response;
+      if (err) {
+        response = { error: true, message: 'Error fetching data' };
       }
-      // res.send(books);
-      /* res.render('books/index', {
-        title: 'Books',
-        books,
-      }); */
+      // tslint:disable-next-line: no-shadowed-variable
+      await Book.find({}, {}, query, (err, data) => {
+        if (err) {
+          response = { error: true, message: 'Error fetching data' };
+        } else {
+          const totalPages = Math.ceil(totalCount / size);
+          response = { error: false, 'message': data, pages: totalPages };
+        }
+        res.json(response);
+      });
     });
-    res.render('books/index', {
+    /* res.render('books/index', {
       title: 'Books',
       books,
-    });
+    }); */
   }
 
   public renderFormBook(req: Request, res: Response): void {
