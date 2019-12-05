@@ -1,5 +1,3 @@
-// fakerjs tutorial:  http://zetcode.com/javascript/fakerjs/
-
 import { Request, Response } from 'express';
 // import the model and the interface
 import Book, { IBook } from '../models/Book';
@@ -13,8 +11,28 @@ class BooksController {
   }
 
   public async index(req: Request, res: Response): Promise<void> {
+    // parans to expect: ?pageNo=1&size=10
+    const pageNo = (req.query.pageNo) ? parseInt(req.query.pageNo, 10) : 1;
+    const size = (req.query.size) ? parseInt(req.query.size, 10) : 0;
+    const query: {skip?: number, limit?: number} = {};
+    if (pageNo < 0 || pageNo === 0) {
+      const response = { error: true, message: 'invalid page number, should start with 1' };
+      res.send(response);
+    }
+    query.skip = size * (pageNo - 1);
+    query.limit = size;
+
      // get all books using the model
-    const books: IBook[] = await Book.find();
+    const books: IBook[] = await Book.find({}, {}, query, (err, data) => {
+      if(err) {
+        res.send({'error': true, 'message': 'Error fetching data'});
+      }
+      // res.send(books);
+      /* res.render('books/index', {
+        title: 'Books',
+        books,
+      }); */
+    });
     res.render('books/index', {
       title: 'Books',
       books,
