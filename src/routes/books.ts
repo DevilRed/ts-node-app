@@ -14,4 +14,6 @@ router.post('/edit/:id', multer.single('image'), booksController.editBook);
 
 router.post('/delete/:id', booksController.deleteBook);
 
+router.get('/add_fake_data', booksController.addFakeData );
+
 export default router;

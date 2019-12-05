@@ -1,8 +1,11 @@
+// fakerjs tutorial:  http://zetcode.com/javascript/fakerjs/
+
 import { Request, Response } from 'express';
 // import the model and the interface
 import Book, { IBook } from '../models/Book';
 import fs from 'fs-extra';
 import path from 'path';
+import * as faker from 'faker';
 
 class BooksController {
   public renderBook(req: Request, res: Response): void {
@@ -51,6 +54,24 @@ class BooksController {
   public async deleteBook(req: Request, res: Response): Promise<void> {
     await Book.findByIdAndDelete(req.params.id);
     res.redirect('/books');
+  }
+
+  public async addFakeData(req: Request, res: Response): Promise<void> {
+    const booksArray: IBook[] = [];
+    for(let i = 0; i < 100; i++) {
+      const title: string = `${faker.name.title()}`;
+      const author = `${faker.name.findName()}`;
+      const isbn = `${faker.address.zipCode()}`;
+      const book: IBook = new Book({ title, author, isbn });
+
+      booksArray.push(book);
+    }
+    await Book.collection.insert(booksArray, (err, docs) => {
+      if (err) {
+        return res.send(err);
+      }
+      return res.redirect('/books');
+    });
   }
 }
 
